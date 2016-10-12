@@ -1,0 +1,54 @@
+[07-Jul-2016 05:19:54 America/Chicago] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1045] Access denied for user 'hawe_superadmin'@'localhost' (using password: YES)' in /home/texcelen/public_html/hawe/include/config.php:17
+Stack trace:
+#0 /home/texcelen/public_html/hawe/include/config.php(17): PDO->__construct('mysql:host=loca...', 'hawe_superadmin', '^ha&we7@adm8in', Array)
+#1 /home/texcelen/public_html/hawe/index.php(4): require_once('/home/texcelen/...')
+#2 {main}
+  thrown in /home/texcelen/public_html/hawe/include/config.php on line 17
+[07-Jul-2016 05:19:57 America/Chicago] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1045] Access denied for user 'hawe_superadmin'@'localhost' (using password: YES)' in /home/texcelen/public_html/hawe/include/config.php:17
+Stack trace:
+#0 /home/texcelen/public_html/hawe/include/config.php(17): PDO->__construct('mysql:host=loca...', 'hawe_superadmin', '^ha&we7@adm8in', Array)
+#1 /home/texcelen/public_html/hawe/index.php(4): require_once('/home/texcelen/...')
+#2 {main}
+  thrown in /home/texcelen/public_html/hawe/include/config.php on line 17
+[07-Jul-2016 05:19:59 America/Chicago] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1045] Access denied for user 'hawe_superadmin'@'localhost' (using password: YES)' in /home/texcelen/public_html/hawe/include/config.php:17
+Stack trace:
+#0 /home/texcelen/public_html/hawe/include/config.php(17): PDO->__construct('mysql:host=loca...', 'hawe_superadmin', '^ha&we7@adm8in', Array)
+#1 /home/texcelen/public_html/hawe/index.php(4): require_once('/home/texcelen/...')
+#2 {main}
+  thrown in /home/texcelen/public_html/hawe/include/config.php on line 17
+[07-Jul-2016 05:28:44 America/Chicago] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[HY000] [1045] Access denied for user 'hawe_superadmin'@'localhost' (using password: YES)' in /home/texcelen/public_html/hawe/include/config.php:17
+Stack trace:
+#0 /home/texcelen/public_html/hawe/include/config.php(17): PDO->__construct('mysql:host=loca...', 'hawe_superadmin', '^ha&we7@adm8in', Array)
+#1 /home/texcelen/public_html/hawe/index.php(4): require_once('/home/texcelen/...')
+#2 {main}
+  thrown in /home/texcelen/public_html/hawe/include/config.php on line 17
+[08-Jul-2016 06:45:49 America/Chicago] PHP Fatal error:  Class 'staticFunc' not found in /home/texcelen/public_html/hawe/include/session.php on line 15
+[08-Jul-2016 06:46:21 America/Chicago] PHP Fatal error:  Class 'staticFunc' not found in /home/texcelen/public_html/hawe/include/session.php on line 15
+[08-Jul-2016 06:46:48 America/Chicago] PHP Fatal error:  Class 'staticFunc' not found in /home/texcelen/public_html/hawe/include/session.php on line 15
+[08-Jul-2016 06:47:48 America/Chicago] PHP Fatal error:  Class 'staticFunc' not found in /home/texcelen/public_html/hawe/include/session.php on line 15
+[10-Jul-2016 23:54:41 America/Chicago] PHP Fatal error:  Class 'staticFunc' not found in /home/texcelen/public_html/hawe/include/session.php on line 15
+[10-Jul-2016 23:54:59 America/Chicago] PHP Fatal error:  Class 'staticFunc' not found in /home/texcelen/public_html/hawe/include/session.php on line 15
+[12-Jul-2016 13:07:22 America/Chicago] PHP Fatal error:  Class 'staticFunc' not found in /home/texcelen/public_html/hawe/include/session.php on line 15
+[12-Jul-2016 13:07:27 America/Chicago] PHP Fatal error:  Class 'staticFunc' not found in /home/texcelen/public_html/hawe/include/session.php on line 15
+[13-Jul-2016 06:50:03 America/Chicago] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'course_of_choice' at row 1' in /home/texcelen/public_html/hawe/class/UI.php:23
+Stack trace:
+#0 /home/texcelen/public_html/hawe/class/UI.php(23): PDOStatement->execute(Array)
+#1 /home/texcelen/public_html/hawe/class/UI.php(115): UI->registerUser('Etekamba', 'Wilson', 'Emmanuel', 'Male', '13 Church Stree...', 'Okon-Afo', 'Badagry', 'Lagos State', 'Nigeria', '07033692729', '07033692729', 'preachersheart@...', 'Basic Certifica...', 'passports%2Fpas...')
+#2 /home/texcelen/public_html/hawe/class/UI.php(263): UI->formHandling()
+#3 /home/texcelen/public_html/hawe/class/UI.php(253): UI->registerPage()
+#4 /home/texcelen/public_html/hawe/class/UI.php(15): UI->mainSection()
+#5 /home/texcelen/public_html/hawe/register.php(7): UI->__construct(Object(PDO))
+#6 {main}
+  thrown in /home/texcelen/public_html/hawe/class/UI.php on line 23
+[18-Jul-2016 03:35:48 America/Chicago] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'course_of_choice' at row 1' in /home/texcelen/public_html/hawe/class/UI.php:22
+Stack trace:
+#0 /home/texcelen/public_html/hawe/class/UI.php(22): PDOStatement->execute(Array)
+#1 /home/texcelen/public_html/hawe/class/UI.php(152): UI->registerUser('Offiong', 'Aniekanabasi', 'Emmanuel', 'Male', '94 Udo Ekpo Mkp...', 'Uyo', 'Uyo', 'Akwa Ibom State', 'Nigeria', '07064704861', '07064704861', 'gentleekan@gmai...', 'Advanced Certif...', 'passports%2Fpas...')
+#2 /home/texcelen/public_html/hawe/class/UI.php(303): UI->formHandling()
+#3 /home/texcelen/public_html/hawe/class/UI.php(293): UI->registerPage()
+#4 /home/texcelen/public_html/hawe/class/UI.php(14): UI->mainSection()
+#5 /home/texcelen/public_html/hawe/register.php(7): UI->__construct(Object(PDO))
+#6 {main}
+  thrown in /home/texcelen/public_html/hawe/class/UI.php on line 22
+[18-Jul-2016 03:38:27 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/texcelen/public_html/hawe/class/UI.php:251) in /home/texcelen/public_html/hawe/class/staticFunc.php on line 31
+[18-Jul-2016 04:00:23 America/Chicago] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/texcelen/public_html/hawe/class/UI.php:251) in /home/texcelen/public_html/hawe/class/staticFunc.php on line 31
