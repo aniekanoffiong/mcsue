@@ -66,7 +66,6 @@ class Items {
 		$this->userType = $userType;
 		$this->userId = $userId;
 		$setClass = get_class($class);
-		echo $setClass;
 		if (isset($itemId)) {
 			return self::getDetails ( $itemId );
 		}

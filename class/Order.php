@@ -1,15 +1,10 @@
 <?php
 
-/**	Class Order that defines all orders requirements
-*/ 
+/**
+ * Class Order that defines all orders requirements
+ */
 class Order extends Items implements itemDetailsInterface,  UserInterface {
 	
-	/**	
-	 *	@param $pdo connection variable to the database
-	 *	@param $title title for the design to be created
-	 *	@param $photo url link to the photo of the design
-	 *	@param $pricing the set price for the design
-	 */
 	private function makeOrder ( $pdo, $designId, $custId, $added_details, $order_date, $delivery_date, $delivery_time, $delivery_location ) {
 		$orderId = parent::createNewId ( __CLASS__ );
 		//Add design to database
@@ -27,8 +22,8 @@ class Order extends Items implements itemDetailsInterface,  UserInterface {
 	
 	/**	
 	 *	Method getDetails returns details of the order
-	 *	@param $pdo connection variable to the database
-	 *	@return returns result set of the order
+	 *	@param $orderId string to the database
+	 *	@return array set of the order
 	 */
 	private function getDetails ( $orderId ) {
 		//Returns details of given item
@@ -131,10 +126,9 @@ class Order extends Items implements itemDetailsInterface,  UserInterface {
 		<div class="col-md-8 col-md-offset-2">
 			<form class="form-horizontal form-add-info" id="edit-item-form" enctype="multipart/form-data" method="post" action="<?php echo basename($_SERVER['PHP_SELF']); ?>">
 				<fieldset>
-				<legend class="text-info text-center">New Order</legend>
+				<legend class="text-info text-center">Place New Order</legend>
 					<div class="row">
 						<div class="col-md-6 col-md-offset-3">
-							<label for="itemImage">Item</label>
 							<input type="hidden" name="itemImage" value="<?php echo $itemId; ?>" />
 							<div><img src="designs/black_flowered_shirt.jpg" class="img-responsive img-rounded" /></div>
 						</div>
@@ -147,16 +141,17 @@ class Order extends Items implements itemDetailsInterface,  UserInterface {
 							</div>
 							<p class="help-block">Amount for the Item Selected</p>
 						</div>
-						<div class="col-md-6 <?php if (isset(staticFunc::$formInput['dueDate'])) { echo 'has-error'; } ?>">
+						<div class="clearfix"></div>
+						<div class="col-md-5 <?php if (isset(staticFunc::$formInput['dueDate'])) { echo 'has-error'; } ?>">
 							<label for="datepicker">Intended Delivery Date</label>
 							<input type="date" class="form-control" id="datepicker" name="dueDate" value="<?php if (isset($_POST['dueDate'])) { echo $_POST['dueDate']; }?>" placeholder="YYYY-MM-DD" />
 							<p class="help-block">Select The Intended Date For Order Delivery</p>
 						</div>
-						<div class="col-md-6">
-							<label for="assgnDeadlineTime">Intended Delivery Time</label>
+						<div class="col-md-7">
+							<label for="assgnDeadlineTime">Intended Delivery Time</label><br />
 							<button class="btn btn-info" id="addTimeDeadline">Click To Add</button>
-							<div class="pad hidden" id="selectTimeDeadline" >
-								<select name="dueTime" id="dueTime" class="item-select form-inline" required>
+							<div class="pad inline hidden" id="selectTimeDeadline" >
+								<select name="dueTime" id="dueTime" class="select-smaller form-inline" required>
 									<option value="0" hidden>- Time -</option>
 									<?php
 										$durationNo = range(01,24);
@@ -174,14 +169,14 @@ class Order extends Items implements itemDetailsInterface,  UserInterface {
 							<p class="help-block">Select Intended Delivery Time</p>
 						</div>
 						<div class="col-md-12">
-							<label for="deliveryVenue">Other Colour Variants</label>
+							<label for="deliveryVenue">Delivery Venue (Address)</label>
 							<input type="text" id="deliveryVenue" name="deliveryVenue" maxlength="100" class="form-control" value="<?php if (isset($_POST['deliveryVenue'])) { echo $_POST['deliveryVenue']; }?>" placeholder="Enter Delivery Venue" required/>
 							<p class="help-block">Enter The Intended Delivery Venue (Address)</p>
 						</div>
 					</div>
 					<div class="form-group">
-						<button type="submit" id="createOrderSubmit" name="createOrderSubmit" class="btn btn-info margin-left-right" ><span class="fa fa-cart"></span> Save And Browse Other Items</button>
-						<button id="checkOutOrder" name="checkOutOrder" class="btn btn-info margin-left-right"><span class="fa fa-checkout"></span> Check Out and Complete Order</button>
+						<button type="submit" id="createOrderSubmit" name="createOrderSubmit" class="btn btn-info margin-left-md" ><span class="fa fa-save"></span> Save And Add Other Items</button>
+						<button id="checkOutOrder" name="checkOutOrder" class="btn btn-info"><span class="fa fa-check-out"></span> Check Out and Complete Order</button>
 					</div>
 					<input type="hidden" name="createOrderForm" />
 				</fieldset>

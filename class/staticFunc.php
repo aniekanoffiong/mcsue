@@ -1074,7 +1074,8 @@ class staticFunc {
 									continue;
 								} else {
 									$remindTime = ((isset($_POST["eventTime$i"]) && !empty($_POST["eventTime$i"])) && (is_numeric($_POST["eventTime$i"]) && $_POST["eventTime$i"] > 0 || $_POST["eventTime$i"] <= 24)) ? $_POST["eventTime$i"] : '00:00:00';
-									$reminderDateTime = $_POST["personalRemind$i"].' '.$remindTime;
+									$confirmRemindTime = ($remindTime == 24) ? '00' : $remindTime;
+									$reminderDateTime = $_POST["personalRemind$i"].' '.$confirmRemindTime;
 									$updatePersonalReminder = $reminder->postponePersonalReminder ( $reminderId, $reminderDateTime, $pdo );
 								}
 							} else {
@@ -1090,6 +1091,7 @@ class staticFunc {
 								continue;
 							}
 						} else {
+							$_SESSION['reminderStatus'][$i] = array ('type' => 'info');
 							continue;
 						}	
 					}
@@ -1109,8 +1111,10 @@ class staticFunc {
 				}
 				$eventTime = (is_numeric($_POST['eventTime']) && $_POST['eventTime'] > 0 || $_POST['eventTime'] <= 24) ? $_POST['eventTime'] : '00:00:00';
 				$targetTime = (is_numeric($_POST['targetTime']) && $_POST['targetTime'] > 0 || $_POST['targetTime'] <= 24) ? $_POST['targetTime'] : '00:00:00';
-				$eventDateTime = $eventDate.' '.$eventTime;
-				$remindDateTime = $targetDate.' '.$targetTime;
+				$confirmEventTime = ($eventTime == 24) ? '00' : $eventTime;
+				$confirmTargetTime = ($targetTime == 24) ? '00' : $targetTime;
+				$eventDateTime = $eventDate.' '.$confirmEventTime;
+				$remindDateTime = $targetDate.' '.$confirmTargetTime;
 				if ($_POST['remindOthers'] == 1) {
 					$othersInvolved = 'Admins';
 				} elseif ($_POST['remindOthers'] == 2) {

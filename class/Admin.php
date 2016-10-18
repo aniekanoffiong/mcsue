@@ -10,6 +10,16 @@ class Admin extends Users implements UserInterface {
 	 */
 
 	protected function indexUI () {
+		//if ($_SESSION['getReminders'] == NULL) echo $_SESSION['getReminders'];
+		if ($_SESSION['getReminders'] !== NULL) {
+			$type = 'warning';
+			$countReminders = ($_SESSION['getReminders'] > 1) ? 'Reminders' : 'Reminder';
+			$msg = "You Have ".$_SESSION['getReminders']." $countReminders";
+			$link = 'reminders.php';
+			$linkValue = 'Click Here to View';
+			staticFunc::alertDisplay($type, $msg, $link, $linkValue);
+			unset($_SESSION['getReminders']);
+		}
 ?>
 		<div class="row index-row">
 			<div class="well index-well">

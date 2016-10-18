@@ -236,12 +236,14 @@ class Reminder extends Items implements itemDetailsInterface, UserInterface {
 		} elseif (isset($_SESSION['reminderStatus'])) {
 			$totalMessages = count($_SESSION['reminderStatus']);
 			$type = 'success';
-			$errorType = NULL;
 			foreach ($_SESSION['reminderStatus'] as $key => $value) {
 				if ($value['type'] == 'success') {
 					$successType = 1;
+				} elseif ($value['type'] == 'info') {
+					$type = 'info';
+					$reminderInfo = 'You Have To Mark the Reminder As Viewed To Remove Notification';
 				} else {
-					$errorType += 1;
+					$errorType = 1;
 					$getReminder[] = $value['id'];
 				}
 			}
@@ -250,7 +252,8 @@ class Reminder extends Items implements itemDetailsInterface, UserInterface {
 			}
 			$infoMsg = ($totalMessages == 1) ? 'A Reminder Was Not Updated<br /><i>(Reminder below with Red Borders)</i>' : 'Some Reminders Were Not Updated<br /><i>(Reminder below with Red Borders)</i>';
 			$successMsg = ($totalMessages == 1) ? 'Your Reminder Was Successfully Updated' : 'Your Reminders Were Successfully Updated';
-			$msg = (isset($successType) && isset($errorType)) ? "$infoMsg" : "$successMsg";
+			$getMsg = (isset($successType) && isset($errorType)) ? "$infoMsg" : "$successMsg";
+			$msg = (!isset($reminderInfo)) ? $getMsg : $reminderInfo;
 			if ($type == 'success') {
 				staticFunc::alertDisplay( $type, $msg );
 			} else {
@@ -422,7 +425,7 @@ class Reminder extends Items implements itemDetailsInterface, UserInterface {
 				<td><?php echo $value['remind_datetime'].$daysAway; ?></td>
 				<td><?php echo rtrim($involved, ' <br />'); ?></td>
 				<td><input id="switch-<?php echo $remindCount; ?>" class="cmn-toggle switch" type="checkbox" name="switch-<?php echo $remindCount; ?>" value="<?php echo staticFunc::maskURLParam($value['reminder_id']); ?>" /><label for="switch-<?php echo $remindCount; ?>"></label><div id="remindswitch-<?php echo $remindCount; ?>" class="text-normal initHidden" title="Postpone Personal Reminder"><div class="bold text-info">Postpone Reminder</div>
-					<input type="date" class="datepicker setRemindDate" name="personalRemind<?php echo $remindCount; ?>" />
+					<input type="date" class="datepicker setRemindDate" name="personalRemind<?php echo $remindCount; ?>" placeholder="Select Date"/>
 					<select name="eventTime<?php echo $remindCount; ?>" id="eventTime<?php echo $remindCount; ?>" class="select-min-width form-inline">
 						<option value="0" hidden> Time </option>
 						<?php

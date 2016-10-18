@@ -138,6 +138,11 @@ body {
 }
 
 @media screen and (min-width: 768px) {
+	.select-smaller {
+		width: 80%;
+	}
+
+
 	.setRemindDate {
 		max-width: 40%;
 	}
@@ -1205,7 +1210,7 @@ footer {
 	min-width: 150px;
 }
 
-.form-add-info .item-select, .select-full-width {
+.form-add-info .item-select, .select-full-width, .select-smaller {
 	height: 33px;
 	padding-left: 10px;
 }
@@ -1221,7 +1226,7 @@ footer {
 	margin: 0 3px;
 }
 
-.item-select option, .multiple_select option {
+.item-select option, .multiple_select option, .select-smaller option {
 	padding-left: 10px;
 }
 

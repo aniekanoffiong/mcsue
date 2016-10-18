@@ -1486,11 +1486,11 @@ class Users {
 			</div>
 			<?php } ?>
 			<div class="col-sm-6 col-md-4 home-icon">
-				<a href="reminders.php" title="Reminders"><span class="badge notify-badge"><?php $remind = new Reminder; echo $remind->allReminders ( $this->pdo, $_SESSION['userType'] ); ?></span><span class="glyphicon glyphicon-calendar home-icon"></span>
+				<a href="reminders.php" title="Reminders"><span class="glyphicon glyphicon-calendar home-icon"></span>
 				<div class="text-center inline-block home-text">Reminders</div></a>
 			</div>
-		</div>		
-<?php		
+		</div>
+<?php
 	}
 	
 	/**

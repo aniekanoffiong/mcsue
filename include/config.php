@@ -7,7 +7,7 @@
 /**	Requiring Database Constants set in seperate file 
 *	outside of www folder
 */
-if ( $_SERVER['PHP_SELF'] == '/mcsueapp/index.php' || $_SERVER['PHP_SELF'] == '/mcsueapp/testfile.php' || $_SERVER['PHP_SELF'] == '/mcsueapp/forgotpassword.php' ) {
+if ( $_SERVER['PHP_SELF'] == '/index.php' || $_SERVER['PHP_SELF'] == '/testfile.php' || $_SERVER['PHP_SELF'] == '/forgotpassword.php' ) {
 	require_once('../../mcsueConstants.php');
 } else {
 	require_once('../../../mcsueConstants.php');
