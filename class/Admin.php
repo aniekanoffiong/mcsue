@@ -10,15 +10,15 @@ class Admin extends Users implements UserInterface {
 	 */
 
 	protected function indexUI () {
-		//if ($_SESSION['getReminders'] == NULL) echo $_SESSION['getReminders'];
-		if ($_SESSION['getReminders'] !== NULL) {
+		$remind = new Reminder;
+		$getReminder = $remind->allReminders ( $this->pdo, $_SESSION['userType'] );
+		if (isset($getReminder)) {
 			$type = 'warning';
-			$countReminders = ($_SESSION['getReminders'] > 1) ? 'Reminders' : 'Reminder';
-			$msg = "You Have ".$_SESSION['getReminders']." $countReminders";
+			$countReminders = ($getReminder > 1) ? 'Reminders' : 'Reminder';
+			$msg = "You Have $getReminder $countReminders";
 			$link = 'reminders.php';
 			$linkValue = 'Click Here to View';
 			staticFunc::alertDisplay($type, $msg, $link, $linkValue);
-			unset($_SESSION['getReminders']);
 		}
 ?>
 		<div class="row index-row">

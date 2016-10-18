@@ -17,7 +17,7 @@ class UI {
 	
 	private function phpHeader () {
 		if (isset($_SESSION['userType']) && isset($_SESSION['userId'])) {
-			if ( $this->page == '/index.php' ) {
+			if ( $this->page == '/mcsueapp/index.php' ) {
 				staticFunc::redirect('mcsue/index.php');
 			} else {
 				if ( $_SESSION['userType'] == 'Admin' ) {
@@ -32,15 +32,15 @@ class UI {
 				}
 			}
 		} else { //This is an error access
-			if ( $this->page !== '/index.php' && $this->page !== '/forgotpassword.php' ) {
+			if ( $this->page !== '/mcsueapp/index.php' && $this->page !== '/mcsueapp/forgotpassword.php' ) {
 				staticFunc::endSession( $this->pdo, 1 );
 				staticFunc::redirect('../index.php?access=denied');
 			}
 		}
 		//Log Out if this is Logout page
-		if ( $this->page == '/mcsue/logout.php' ) {
+		if ( $this->page == '/mcsueapp/mcsue/logout.php' ) {
 			$this->user->logout();
-		} elseif ( $this->page !== '/index.php' && $this->page !== '/forgotpassword.php' ) {
+		} elseif ( $this->page !== '/mcsueapp/index.php' && $this->page !== '/mcsueapp/forgotpassword.php' ) {
 			//Get User's Preferences
 			staticFunc::userPreferences( $this->pdo );
 		}
@@ -67,7 +67,7 @@ class UI {
 	private function createBodySection () {
 		//Removed mcsueapp
 		//if ($this->page !== '/index.php') {
-		if ( $this->page !== '/index.php' && $this->page !== '/forgotpassword.php' ) {
+		if ( $this->page !== '/mcsueapp/index.php' && $this->page !== '/mcsueapp/forgotpassword.php' ) {
 			$page = basename($this->page);
 			$this->user->createUI ( $page, $_SESSION['userId'], $this->user );
 		} else {
@@ -108,7 +108,7 @@ class UI {
 	public function htmlNavBarSection () {
 		//Removed mcsueapp
 		//if ( $this->page !== '/index.php' ) {
-		if ( $this->page !== '/index.php' && $this->page !== '/forgotpassword.php' ) {
+		if ( $this->page !== '/mcsueapp/index.php' && $this->page !== '/mcsueapp/forgotpassword.php' ) {
 		//If this is not the Login Page
 ?>	
 			<link rel="stylesheet" href="../css/bootstrap.min.css" />
@@ -177,8 +177,7 @@ class UI {
 						</ul>
 						<div class="navbar-right" id="default_img"><a href="user.php" title="<?php echo $this->userData['name']; ?>"><img class="img-thumbnail" src=<?php echo urldecode($this->userData['photo']); ?> alt="User Photo" /><span class="badge mcsue-badge blink"><?php 
 						$remind = new Reminder;
-						$_SESSION['getReminders'] = $remind->allReminders ( $this->pdo, $_SESSION['userType'] );
-						if ($_SESSION['getReminders'] !== '') echo $_SESSION['getReminders'];
+						echo $remind->allReminders ( $this->pdo, $_SESSION['userType'] );
 						?></span></a></div>
 					</div>
 				</div>
@@ -243,7 +242,7 @@ class UI {
 	public function bottomSection () {
 		//Removed mcsueapp
 		//if ( $this->page !== '/index.php' ) {
-		if ( $this->page !== '/index.php' && $this->page !== '/forgotpassword.php' ) {
+		if ( $this->page !== '/mcsueapp/index.php' && $this->page !== '/mcsueapp/forgotpassword.php' ) {
 			echo '</div> <!--Close of main content container div -->
 			</div> <!--Close of body row div -->
 			</div> <!--Close of main Container div -->
@@ -270,7 +269,7 @@ class UI {
 					<div class="row">
 						<!-- Removed mcsueapp 
 						<div class="<?php //if ($this->page == '/index.php') { echo 'col-sm-offset-4';} ?> -->
-						<div class="<?php if ($this->page == '/index.php' || $this->page == '/forgotpassword.php') { echo 'col-sm-offset-4';} ?>
+						<div class="<?php if ($this->page == '/mcsueapp/index.php' || $this->page == '/mcsueapp/forgotpassword.php') { echo 'col-sm-offset-4';} ?>
 						col-sm-4 col-md-4" id="footer-address">
 							<div class="caption">Contact Us</div><hr class="hr-class">
 							<span class="glyphicon glyphicon-map-marker"></span>&nbsp;&nbsp;&nbsp;<span>Apples Court, Area A, Nyanya, Abuja.</span>
@@ -284,7 +283,7 @@ class UI {
 <?php 
 		//Removed mcsueapp
 		//if ($this->page !== '/index.php') {
-		if ($this->page !== '/index.php' && $this->page !== '/forgotpassword.php') {
+		if ($this->page !== '/mcsueapp/index.php' && $this->page !== '/mcsueapp/forgotpassword.php') {
 		//Don't show navigation links on Login Page
 ?>
 						<div class="col-sm-4 col-md-4" id="footer-links">
@@ -630,13 +629,13 @@ class UI {
 			case "index.php":
 				//Removed mcsueapp
 				//Changed mcsue to mcsueapp
-				//if ($this->page == '/index.php' ) {
-				if ($this->page == '/mcsue/index.php' ) {
+				//if ($this->page == '/mcsueapp/index.php' ) {
+				if ($this->page == '/mcsueapp/mcsue/index.php' ) {
 					echo ' Dashboard';
 					break;
 				//Removed mcsueapp
 				//} elseif ( $this->page == '/index.php' ) {
-				} elseif ( $this->page == '/index.php' ) {
+				} elseif ( $this->page == '/mcsueapp/index.php' ) {
 					echo ' Login';	
 					break;
 				} else { 
