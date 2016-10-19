@@ -61,7 +61,7 @@ class staticFunc {
 						$_SESSION['userId'] = $foundUser['user_id'];
 						$_SESSION['userType'] = $foundUser['user_type'];
 						//Redirect to Admin Dashboard
-						//self::redirect("mcsueapp/index.php");
+						//self::redirect("index.php");
 						self::redirect("mcsue/index.php");
 					} else {
 						//Error caused by inability to write log

@@ -1,7 +1,7 @@
 <?php
 
 //Initializes classes automatically
-if ( $_SERVER['PHP_SELF'] == '/mcsueapp/index.php' || $_SERVER['PHP_SELF'] == '/mcsueapp/testfile.php' ) {
+if ( $_SERVER['PHP_SELF'] == '/index.php' || $_SERVER['PHP_SELF'] == '/testfile.php' ) {
 	spl_autoload_register(function($class) {
 		require_once("class/{$class}.php");
 	});
