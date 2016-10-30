@@ -12,8 +12,8 @@ class Admin extends Users implements UserInterface {
 	protected function indexUI () {
 		$remind = new Reminder;
 		$getReminder = $remind->allReminders ( $this->pdo, $_SESSION['userType'] );
-		if (isset($getReminder)) {
-			$type = 'warning';
+		if ($getReminder !== '') {
+			$type = 'info';
 			$countReminders = ($getReminder > 1) ? 'Reminders' : 'Reminder';
 			$msg = "You Have $getReminder $countReminders";
 			$link = 'reminders.php';

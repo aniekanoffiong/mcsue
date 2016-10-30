@@ -20,9 +20,9 @@ class MailMessages extends Items {
 		$stmt->execute([':msgId' => $msgId]);
 		$deletedCurrent = $stmt->fetchColumn();
 		$allDeleted = ($deletedCurrent == '') ? $_SESSION['userId'] : $deletedCurrent . ';' . $_SESSION['userId'];
-		$sql = 'UPDATE msgs_in_out SET deleteMsg = :userId WHERE msg_id = :msgId';
+		$sql = 'UPDATE msgs_in_out SET deleteMsg = :allDeleted WHERE msg_id = :msgId';
 		$stmt = $pdo->prepare($sql);
-		$stmt->execute([':userId' => $allDeleted, ':msgId' => $msgId]);
+		$stmt->execute([':allDeleted' => $allDeleted, ':msgId' => $msgId]);
 		if ($stmt->rowCount()) {
 			return 'success';
 		} else {

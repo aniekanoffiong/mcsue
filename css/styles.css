@@ -1805,6 +1805,10 @@ input.input-image {
 	margin: 2px auto;
 }
 
+.ui-datepicker { 
+	z-index: 9999 !important;
+}
+
 @media print {
 	.btn, a, footer, .navbar, #sidebar-main {
 		display: none;

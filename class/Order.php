@@ -60,12 +60,13 @@ class Order extends Items implements itemDetailsInterface,  UserInterface {
 	 *	VIEW PAGES
 	 */	
 	protected function ordersUI () {
+		if ($this->userType == 'Customer') echo '<div class="row add-item-row"><button class="btn btn-info btn-add-item" onclick="window.location.href=\'designs.php\'"><strong>Make Order</strong></button></div>';
 		$orders = ( $this->userType !== 'Admin' ) ? self::getItems ( __CLASS__, $this->tableLimit, $this->userId ) : self::getItems ( __CLASS__, $this->tableLimit );
 		if ( !is_array($orders) || empty($orders) ) {
 			$type = 'error';
-			$msg = "<b>There Are No Current Orders Available To View.</b>";
+			$msg = "There Are No Current Orders Available To View";
 			//Display Alert;
-			staticFunc::alertDisplay ( $type, $msg );
+			staticFunc::alertDisplay ( $type, $msg, 1 );
 		} else {
 ?>
 			<div class="row">
@@ -122,6 +123,14 @@ class Order extends Items implements itemDetailsInterface,  UserInterface {
 
 	protected function createorderUI () {
 		echo '<div class="row add-item-row"><button class="btn btn-info btn-add-item" onclick="window.location.href=\'orders.php\'"><strong>Back To Orders</strong></button></div>';
+		if (isset($_GET['item'])) {
+			$itemId = staticFunc::unmaskURLParam($_GET['item']);
+		} else {
+			staticFunc::redirect('designs.php?noitem=');
+		}
+		$design = new Design;
+		$getItemdetails = $design->getDetails ( $itemId, $this->pdo );
+		var_dump($getItemdetails);
 ?>
 		<div class="col-md-8 col-md-offset-2">
 			<form class="form-horizontal form-add-info" id="edit-item-form" enctype="multipart/form-data" method="post" action="<?php echo basename($_SERVER['PHP_SELF']); ?>">
@@ -130,16 +139,54 @@ class Order extends Items implements itemDetailsInterface,  UserInterface {
 					<div class="row">
 						<div class="col-md-6 col-md-offset-3">
 							<input type="hidden" name="itemImage" value="<?php echo $itemId; ?>" />
-							<div><img src="designs/black_flowered_shirt.jpg" class="img-responsive img-rounded" /></div>
+							<div><img src="<?php echo urldecode($getItemdetails['photo']) ?>" class="img-responsive img-rounded" /></div>
 						</div>
-						<div class="col-md-5 col-md-offset-3">
+						<div class="col-md-4 col-md-offset-4">
 							<label for="itemPricing">Pricing</label>
 							<div class="input-group">
 								<div class="input-group-addon">N</div>
-								<input type="text" id="itemPricing" name="itemPricing" value="<?php if (isset($_POST['itemPricing'])) { echo $_POST['itemPricing']; }?>500, 000" class="form-control bold" z-index="-10" readonly />
-								<div class="input-group-addon">.00</div>
+								<input type="text" id="itemPricing" name="itemPricing" value="<?php echo number_format($getItemdetails['pricing'], 2) ?>" class="form-control bold" z-index="-10" readonly />
 							</div>
 							<p class="help-block">Amount for the Item Selected</p>
+						</div>
+						<div class="clearfix"></div>
+						<div class="col-md-3 <?php if (isset(staticFunc::$formInput['orderQuantity'])) { echo 'has-error'; } ?>">
+							<label for="orderQuantity">Desired Quantity</label>
+							<?php if ($getItemdetails['stock_quantity'] == 1) {
+								echo '<input type="text" id="orderQuantity" name="orderQuantity" maxlength="3" class="form-control" value="'. $getItemdetails['stock_quantity'] .'" placeholder="Enter Desired Quantity" readonly />';
+								echo '<p class="help-block">Available Quantity</p>';
+							} else {
+								echo '<select></select>';
+							}
+							?>
+						</div>
+						<div class="col-md-4 <?php if (isset(staticFunc::$formInput['sizeVariants'])) { echo 'has-error'; } ?>">
+							<label for="sizeVariants">Select Size Variants</label>
+							<p>
+								<select name="sizeVariants[]" class="multiple_select form-inline" multiple="multiple">
+									<?php 
+										$sizeVariants = explode(',', $getItemdetails['size_variants']);
+										for ($i = 0; $i < count($sizeVariants); $i++) {
+											echo "<option value='$sizeVariants[$i]'>$sizeVariants[$i]</option>";
+										}
+									?>
+								</select>
+							</p>
+							<p class="help-block">Select Multiple sizes by holding <kbd>Ctrl</kbd> + Size</p>
+						</div>
+						<div class="col-md-5">
+							<label for="designColours">Other Colour Variants</label>
+							<p>
+								<select name="designColours[]" class="multiple_select form-inline" multiple="multiple">
+									<?php 
+										$colourVariants = explode(',', $getItemdetails['colour_variants']);
+										for ($i = 0; $i < count($colourVariants); $i++) {
+											echo "<option value='$colourVariants[$i]'>$colourVariants[$i]</option>";
+										}
+									?>
+								</select>
+							</p>
+							<p class="help-block">Select the Desired Colour Variant(s)</p>
 						</div>
 						<div class="clearfix"></div>
 						<div class="col-md-5 <?php if (isset(staticFunc::$formInput['dueDate'])) { echo 'has-error'; } ?>">

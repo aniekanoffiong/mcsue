@@ -40,12 +40,17 @@ class Design extends Items implements itemDetailsInterface, UserInterface {
 	*	@param $pdo connection variable to the database
 	*	@return returns result set of the design
 	*/
-	private function getDetails ( $itemId ) {
+	public function getDetails ( $itemId, $pdo = NULL ) {
 		//Returns details of given item
 		$sql = "SELECT * FROM designs_tbl WHERE design_id = :id";
-		$stmt = $this->pdo->prepare($sql);
+		$determinePDO = (isset($pdo)) ? $pdo : $this->pdo;
+		$stmt = $determinePDO->prepare($sql);
 		$stmt->execute([':id' => $itemId]);
-		return $stmt->fetchAll();
+		if (isset($pdo)) {
+			return $stmt->fetch();
+		} else {
+			return $stmt->fetchAll();
+		}
 	}
 	
 	/**	
@@ -104,7 +109,6 @@ class Design extends Items implements itemDetailsInterface, UserInterface {
 		if ( !is_array($design) || empty($design) ) {
 			$type = 'error';
 			$msg = "$design There are no Designs available.";
-			//Display Alert;
 			if ( $this->userType == 'Admin' ) {
 				$link = 'adddesign.php';
 				$linkValue = 'Add New Design';
@@ -118,6 +122,18 @@ class Design extends Items implements itemDetailsInterface, UserInterface {
 			} else {
 				echo '<div class="row add-item-row"><button class="btn btn-info btn-add-item" onclick="window.location.href=\'index.php\'"><b>Back To Home</b></button></div>';
 			}
+			if (isset($_GET['noitem'])) {
+				$type = 'warning';
+				$msg = 'Please Select An Item To Order';
+				staticFunc::alertDisplay($type, $msg, 1);
+			}
+			$detailsBtn = 'View Details';
+			$btnType = 'btn-info';
+			if (basename($_SERVER['HTTP_REFERER']) == 'orders.php') {
+				$fromOrder = 1;
+				$detailsBtn = 'Order This Item';
+				$btnType = 'btn-link';
+			}
 			echo '<div class="row">';
 			foreach ( $design as $key => $value ) {
 ?>
@@ -128,7 +144,10 @@ class Design extends Items implements itemDetailsInterface, UserInterface {
 							<p class="text-center item-title"><?php echo $value['title']; ?></p>
 							<hr class="hr-divide">
 							<h4 class="text-center"><b>N <?php echo number_format($value['pricing'], 2); ?></b></h4>
-							<p><a href="designdetails.php?design=<?php echo staticFunc::maskURLParam($value['design_id']); ?>" class="btn btn-info item-link"><b>View Details</b></a></p>
+							<?php
+								if (isset($fromOrder)) echo "<p><a href='createorder.php?item=" . staticFunc::maskURLParam($value['design_id']) ."' class='btn btn-info item-link'><b>Order Item</b></a></p>";
+							?>
+							<p><a href="<?php echo 'designdetails.php?design=' . staticFunc::maskURLParam($value['design_id']); ?>" class="btn item-link <?php echo $btnType; ?>"><b>View Details</b></a></p>
 						</div>
 					</div>
 				</div>
@@ -152,7 +171,6 @@ class Design extends Items implements itemDetailsInterface, UserInterface {
 				$msg = 'The Details of this design are unavailable.';
 				$link = 'designs.php';
 				$linkValue = 'Back To Designs';
-				//Display Alert;
 				staticFunc::alertDisplay ( $alertType, $msg, $link, $linkValue );
 			} else {
 				$_SESSION['id'] = $designId;				
@@ -170,7 +188,6 @@ class Design extends Items implements itemDetailsInterface, UserInterface {
 				foreach ( $designDetails as $key => $value ) {
 ?>
 				<div class="col-sm-offset-2 col-sm-8 text-center" id="deleteAlert"></div>
-					
 				<div class="row">
 					<div class="panel panel-info panel-item-details">
 						<div class="panel-heading"><?php echo 'Details of <br /><span><strong>'. $value['title']; ?></strong></span></div>
@@ -221,7 +238,7 @@ class Design extends Items implements itemDetailsInterface, UserInterface {
 ?>
 					<div class="row">
 						<div class="add-item-row">
-							<button class="btn btn-info save-btn" onclick="window.location.href='createorder.php?order=<?php echo staticFunc::maskURLParam($designId); ?>'">Order This Design</button>
+							<button class="btn btn-info save-btn" onclick="window.location.href='createorder.php?order=<?php echo staticFunc::maskURLParam($designId); ?>'">Order This Item</button>
 						</div>
 					</div>
 <?php				
@@ -229,7 +246,7 @@ class Design extends Items implements itemDetailsInterface, UserInterface {
 				}
 ?>
 		<!-- Modal -->
-		<div class="modal fade" id="myModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">		   
+		<div class="modal fade" id="myModalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">

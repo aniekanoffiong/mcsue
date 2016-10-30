@@ -190,6 +190,10 @@ $(function () {
 		$('#alertDisplay').addClass('hidden'); n();
 	});
 	
+	$('#delayedReminder').delay(5000).queue(function(n){
+		$('#delayedReminder').removeClass('hidden'); n();
+	});
+	
 	$('#mailMessageSubmit').click(function(evt) {
 		evt.stopPropagation();
 		alert('stop');

@@ -76,13 +76,13 @@ class Users {
 		}
 	}
 	
-	/**	Method addUserDetails adds the contact details of the particular 
-	*	User
-	*	@param $userType sets the user type of the user
-	*	@params $userId, $surname, $firstname, $othername, $gender,
-	*	$street, $city, $state, $country, $phone, $phoneAlt, $email, 
-	*	$regDate indicate the details of the user
-	*/
+	/**	
+	 *	Method addUserDetails adds the contact details of the particular User
+	 *	@param $userType sets the user type of the user
+	 *	@param $userId, $surname, $firstname, $othername, $gender,
+	 *	$street, $city, $state, $country, $phone, $phoneAlt, $email, 
+	 *	$regDate indicate the details of the user
+	 */
 	public function addUserDetails ( $userType, $surname, $firstname, $othername, $gender, $street, $city, $state, $country, $phone, $phoneAlt, $email, $photo ) {
 		if ($userType == "Admin" || $userType == 'Staff') {
 			$valTable = 'staff_tbl';
@@ -206,11 +206,12 @@ class Users {
 		}
 	}
 	
-	/** Method getUserDetails to view details of particular user
-	*	@param $userType sets the user type to be viewed
-	*	@param $userId id of the particular user
-	*	@return result set for the particular user
-	*/
+	/** 
+	 *	Method getUserDetails to view details of particular user
+	 *	@param $userType sets the user type to be viewed
+	 *	@param $userId id of the particular user
+	 *	@return result set for the particular user
+	 */
 	public function getUserDetails ( $userType, $userId ) {
 		if ($userType == "Admin" || $userType == "Staff") {
 			$valTable = 'staff_tbl';

@@ -2,10 +2,10 @@
 
 class StudentResult extends Items implements itemDetailsInterface, UserInterface {
 	
-	/**	Method createResult creates new result for a student
-	*	@param $studentId, $courseCode, $score information to be
-	*	added to the database
-	*/
+	/**	
+	 *	Method createResult creates new result for a student
+	 *	@param $studentId, $courseCode, $score information to be added to the database
+	 */
 	public function createResult ( $studentId, $progCode, $score, $pdo ) {
 		//Set resultId Value from inherited method generateId()
 		$resultId = parent::createNewId ( __CLASS__, 8, $pdo );
@@ -22,11 +22,11 @@ class StudentResult extends Items implements itemDetailsInterface, UserInterface
 		}
 	}
 	
-	/**	Method updateResult updates the result of the student
-	*	@param $pdo connection to the database
-	*	@param $resultId, $courseCode, $score information to be 
-	*	updated
-	*/
+	/**	
+	 *	Method updateResult updates the result of the student
+	 *	@param $pdo connection to the database
+	 *	@param $resultId, $courseCode, $score information to be updated
+	 */
 	public function updateResult ( $studentId, $progCode, $score, $pdo ) {
 		//Update Details of designs in database
 		$sql = "UPDATE result_tbl SET score = :score WHERE student_id = :studentId AND prog_code = :progCode";
@@ -202,8 +202,8 @@ class StudentResult extends Items implements itemDetailsInterface, UserInterface
 <?php
 			} else {
 				$type = 'error';
-				$msg = "<b>No Student Has Registered For This Course</b>";
-				staticFunc::alertDisplay ( $type, $msg );
+				$msg = "<b>Student's Result Is Not Available</b>";
+				staticFunc::alertDisplay ( $type, $msg, 1 );
 			}
 		} else {
 			$getProgrammes = self::getAllProgrammes();
@@ -219,8 +219,7 @@ class StudentResult extends Items implements itemDetailsInterface, UserInterface
 <?php
 				}
 				echo '</div>';
-				echo '<hr class="hr-divide"><div class="row"><button class="btn btn-info btn-add-item" onclick="window.location.href=\'addresults.php\'"><strong>Add New Results</strong></button></div><hr class="hr-padding">'; 
-
+				echo '<hr class="hr-divide"><div class="row"><button class="btn btn-info btn-add-item" onclick="window.location.href=\'addresults.php\'"><strong>Add New Results</strong></button></div><hr class="hr-padding">';
 			}
 			$getStudents = self::getAllStudents();
 			if ($getStudents) {
@@ -298,7 +297,7 @@ class StudentResult extends Items implements itemDetailsInterface, UserInterface
 			} else {
 				$type = 'error';
 				$msg = "<b>No Student Has Registered For This Course</b>";
-				staticFunc::alertDisplay ( $type, $msg );
+				staticFunc::alertDisplay ( $type, $msg, 1 );
 			}
 		} else {
 			$getProgrammes = self::getAllProgrammes();

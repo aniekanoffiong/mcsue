@@ -158,7 +158,7 @@ class UI {
 ?>
 							<li class="active"><a href="designs.php"><span class="glyphicon glyphicon-picture"></span> Designs</a></li>
 							<li class="active"><a href="orders.php"><span class="fa fa-shopping-cart"></span> Orders</a></li>
-							<li class="active"><a href="contactus.php"><span class="fa fa-user"></span> Contact Us</a></li>
+							<li class="active"><a href="contactus.php"><span class="fa fa-user"></span> Contact</a></li>
 <?php
 			} elseif ( get_class($this->user) == "Student" ) {
 			//User Logged in is a Student
@@ -171,7 +171,7 @@ class UI {
 									<li><a href="feepayment.php">Fees Payment</a></li>
 								</ul>
 							</li>
-							<li class="active"><a href="contactus.php"><span class="fa fa-user"></span> Contact Us</a></li>	
+							<li class="active"><a href="contactus.php"><span class="fa fa-user"></span> Contact</a></li>	
 <?php		}	?>			
 							<li class="nav-header-btn" title="Log Out"><a href="logout.php"><span class="fa fa-power-off"></span></a></li>
 						</ul>
@@ -747,6 +747,9 @@ class UI {
 			break;
 			case "editreminder.php":
 			echo ' Edit Reminder';
+			break;
+			case "settings.php":
+			echo ' Settings';
 			break;
 			case "personalreminders.php":
 			echo ' Personal Reminders';

@@ -1269,7 +1269,7 @@ class staticFunc {
 			$getUserDetails['userId'] = self::maskURLParam($getUserDetails['userId']);
 			$getUserDetails['photo'] = urldecode($getUserDetails['photo']);
 			echo json_encode($getUserDetails);
-			exit();
+			die();
 		} elseif (isset($_POST['uploadAttachments'])) {
 			if (isset($_FILES['updatePhoto'])) {
 				$uploadFiles = self::multipleUpload ( 'Attachments' );
@@ -1649,9 +1649,10 @@ class staticFunc {
 	/**
 	*	Method alertDisplay to display alerts
 	*/	
-	public static function alertDisplay ( $alertType, $msg, $link = NULL, $linkValue = NULL, $verticalAlign = NULL ) {
+	public static function alertDisplay ( $alertType, $msg, $link = NULL, $linkValue = NULL, $verticalAlign = NULL, $reminderDelayedNotice = NULL ) {
 		$hidden = (isset($link)) ? '' : ' hidden';
 		$alertId = (isset($link)) ? '' : 'id="alertDisplay"';
+		$alertId = (isset($reminderDelayedNotice)) ? 'id="delayedReminder"' : $alertId;
 		echo '<div class="row">';
 		echo "<div class=\"col-sm-offset-2 col-sm-8 text-center\" >";
 		$bold = (isset($link) && isset($linkValue)) ? '' : 'bold';
@@ -1718,6 +1719,7 @@ class staticFunc {
 			return $daysAway = "<b>$initOpen$getDaysAway Day $AwayOrAgo$initClose</b>";
 		} else {
 			if (!isset($getHoursAway)) {
+				if (isset($pastDate))
 				return '<b>'.$initOpen .'Today'. $initClose .'</b>';
 			} else {
 				$getHoursAway = explode(':', $getHours, 3);

@@ -259,7 +259,6 @@ class Reminder extends Items implements itemDetailsInterface, UserInterface {
 			} else {
 				staticFunc::alertDisplay( $type, $msg, 1 );
 			}
-			unset($_SESSION['reminderStatus']);
 		}
 		$particularReminder = NULL;
 		$reminderAlert = true;
@@ -373,12 +372,16 @@ class Reminder extends Items implements itemDetailsInterface, UserInterface {
 			echo '</table>';
 			} else {
 				if (!$getPersonalReminders) {
-					if (!isset($_SESSION['reminderStatus'])) {
+					if (isset($_SESSION['reminderStatus'])) {
+						$type = 'info';
+						$reminderDelayNotice = 1;
+						$msg = 'There Are No Reminders Currently';
+						staticFunc::alertDisplay( $type, $msg, NULL, NULL, NULL, $reminderDelayNotice );
+						unset($_SESSION['reminderStatus']);	
+					} else {
 						$type = 'info';
 						$msg = 'There Are No Reminders Currently';
 						staticFunc::alertDisplay( $type, $msg, 1 );
-					} else {
-						unset($_SESSION['reminderStatus']);
 					}
 				}
 			}
